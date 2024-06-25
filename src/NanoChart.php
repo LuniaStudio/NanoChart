@@ -8,6 +8,7 @@ class NanoChart
     private string $legend = '';
     private string $class = '';
     private string $direction = 'row';
+    private int $breakpoint = 0;
     private string $style = '';
     private int $size = 200;
     private int $hue = 220;
@@ -49,6 +50,11 @@ class NanoChart
 
             $this->direction = $direction;
         }
+    }
+
+    public function setBreakpoint(int $breakpoint)
+    {
+        $this->breakpoint = $breakpoint;
     }
 
     public function setStyle(string $style)
@@ -152,12 +158,18 @@ class NanoChart
 
             case 'column':
 
-                return '<div style="display:flex;flex-direction:column;gap:1.5rem;align-items:center">' . $item   . '</div>';
+                $wrapper = '<div style="display:flex;flex-direction:column;gap:1.5rem;justify-content:center;align-items:center">' . $item   . '</div>';
+
+                break;
 
             case 'row':
 
-                return '<div style="display:flex;flex-direction:row;gap:1.5rem;align-items:center">' . $item   . '</div>';
+                $wrapper = '<div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:1.5rem;justify-content:center;align-items:center">' . $item   . '</div>';
+
+                break;
         }
+
+        return $wrapper;
     }
 
     private function makeEmptyChart(string $chart): string
